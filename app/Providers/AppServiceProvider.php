@@ -7,6 +7,7 @@ use App\Services\PaymentServiceContract;
 use App\Services\PaypalGatway;
 use App\Services\StripeGatway;
 use App\Services\CustomGatway;
+use App\Facades\SomeServiceExample;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('SomeService',function(){
-
+          return new SomeServiceExample('444');
 
         });
     }

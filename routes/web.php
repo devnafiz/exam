@@ -7,6 +7,8 @@ use App\Http\Controllers\PostController;
 
 use App\Facades\SomeServiceExample;
 use Illuminate\Support\Facades\Config;
+use App\Facades\SomeServiceExampleFacade;
+use  SomeService as B;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +24,9 @@ use Illuminate\Support\Facades\Config;
 Route::get('/', function () {
 
      //$service= new SomeServiceExample();
-       dd(Config::get('app.name'));
-     dd($service->dosomething());
+     dd(SomeServiceExampleFacade::dosomething());
+      // dd(Config::get('app.name'));
+     //dd(B::dosomething());
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
