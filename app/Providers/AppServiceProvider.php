@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\PaymentServiceContract;
+use App\Services\PaypalGatway;
+use App\Services\StripeGatway;
+use App\Services\CustomGatway;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,30 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // $this->app->bind(PaymentGatway::class, function(){
+        //   return new PaymentGatway('12123');
+
+        // });
+
+        $this->app->singleton(PaymentServiceContract::class, function(){
+
+            if(request()->gatway ==='stripe'){
+             return new StripeGatway('44545');
+
+            }
+
+         return new PaypalGatway('34343');
+        });
+
+        $this->app->extend(PaymentServiceContract::class, function(){
+
+          return new CustomGatway('545');
+        });
+
+        $this->app->bind('SomeService',function(){
+
+
+        });
     }
 
     /**

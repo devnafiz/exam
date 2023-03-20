@@ -3,6 +3,10 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PostController;
+
+use App\Facades\SomeServiceExample;
+use Illuminate\Support\Facades\Config;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +20,10 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+
+     //$service= new SomeServiceExample();
+       dd(Config::get('app.name'));
+     dd($service->dosomething());
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -33,3 +41,5 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+Route::get('/post/{post}',[PostController::class,'show']);
