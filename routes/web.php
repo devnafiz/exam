@@ -94,3 +94,12 @@ Route::get('/posts',function(){
 
 });
 
+
+Route::get('/tags',function(){
+
+
+    $tags =App\Models\Tag::with('posts')->get();
+     return view('backend.tag.index',compact('tags'));
+
+});
+
