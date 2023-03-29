@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('post_id');
             $table->bigInteger('tag_id');
-            //$table->timestamps();
+            $table->string('status')->nullable();
+            $table->timestamps();
         });
     }
 

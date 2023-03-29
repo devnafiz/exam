@@ -82,9 +82,17 @@ Route::get('/posts',function(){
            
     // ]);
        $tag =App\Models\Tag::first();
-       $post =App\Models\Post::with('tags')->first();
+       $post =App\Models\Post::first();
        //$post->tags()->detach([2,3,4]);
-       $post->tags()->sync([2,3]);// ageula remove kore dey
+     //   //$post->tags()->sync([2,3]);// ageula remove kore dey
+     //   $post->tags()->attach([4=>[
+     //      'status'=>'approved'
+     //   ]
+
+     // ]);
+       dd($post->tags()->first()->pivot);
+
+       //dd($post->tags()->first()->pivot->created_at);
 
        // dd($post);
 
