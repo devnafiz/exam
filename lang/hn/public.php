@@ -3,7 +3,7 @@
 return [
 
     'localization'=>'localization',
-    'localization'=>'localization',
-    'localization'=>'localization',
+    'gallery'=>'localization',
+    'contact'=>'localization',
 
 ];
