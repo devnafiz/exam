@@ -111,3 +111,14 @@ Route::get('/tags',function(){
 
 });
 
+
+Route::get('/sent-mail',function(){
+  //dd('ok');
+   $data['email']='hasan@gamil.com';
+
+   dispatch(new App\Jobs\ProductLouch($data));
+
+   dd('mail send');
+
+});
+
