@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
 use App\Facades\SomeServiceExampleFacade;
 use  SomeService as B;
 use App\Http\Controllers\LocalizationController;
-
+use App\Models\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +23,8 @@ use App\Http\Controllers\LocalizationController;
 */
 
 Route::get('/', function () {
+
+   Product::all();
 
      //$service= new SomeServiceExample();
     // dd(SomeServiceExampleFacade::dosomething());
@@ -113,6 +115,8 @@ Route::get('/tags',function(){
 
 
 Route::get('/sent-mail',function(){
+
+
   //dd('ok');
    $data['email']='hasan@gamil.com';
 
@@ -121,4 +125,6 @@ Route::get('/sent-mail',function(){
    dd('mail send');
 
 });
+
+
 

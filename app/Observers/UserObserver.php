@@ -16,7 +16,7 @@ class UserObserver
     public function created(User $user)
     {
       $title='New User'.$user->name.'created Successfully';
-      $description ='New User'. $user->name.'created crated-'.$user->created_at;
+      $description = 'New User'. $user->name.'created crated-'.$user->created_at;
 
       Post::create([
            'title'=>$title,
