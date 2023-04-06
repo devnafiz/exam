@@ -8,6 +8,7 @@ use Exception;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use App\Models\Product;
+use App\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
@@ -21,8 +22,9 @@ class ProductController extends Controller
     public function index():JsonResponse
     {
        try {
-             $product=Product::all();
-        return $this->responseSuccess([$product],'product fatch succesfully');
+             //$product=Product::all();
+        $productRepository =new ProductRepository;
+        return $this->responseSuccess([$productRepository->getAll()],'product fatch succesfully');
            
        } catch (Exception $e) {
              return $this->responseError('product fatch succesfully',$e-message());
