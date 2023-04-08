@@ -14,17 +14,50 @@ class ProductController extends Controller
 {
 
     use ResponseTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    public $productRepository;
+
+    public function __construct(ProductRepository $productRepository){
+
+        $this->productRepository=$productRepository;
+    }
+     /**
+     * @OA\Get(
+     *     path="/api/products",
+     *     tags={"Products"},
+     *     summary="Get all product summery",
+     *     description="Multiple status values can be provided with comma separated string",
+     *     operationId="index",
+     *     deprecated=true,
+     *     @OA\Parameter(
+     *         name="perPage",
+     *         in="query",
+     *         description="Status values that needed to be considered for filter",
+     *         required=false,
+     *         explode=true,
+     *         @OA\Schema(
+     *             default="10",
+     *             type="integer",
+     *            
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     *     
+     * )
      */
     public function index():JsonResponse
     {
        try {
              //$product=Product::all();
-        $productRepository =new ProductRepository;
-        return $this->responseSuccess([$productRepository->getAll()],'product fatch succesfully');
+       // $productRepository =new ProductRepository;
+        return $this->responseSuccess($this->productRepository->getAll(request()->perPage),'product fatch succesfully');
            
        } catch (Exception $e) {
              return $this->responseError('product fatch succesfully',$e-message());
