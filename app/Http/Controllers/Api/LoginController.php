@@ -9,7 +9,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Repositories\AuthRepository;
-use App\Requests\LoginRequest;
+use App\Http\Requests\LoginRequest;
 
 
 class LoginController extends Controller
@@ -25,27 +25,36 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request){
 
+
+        try {
+            $data=$this->auth->login($request->all());
+            return $this->responseSuccess($data,'login succesfully');
+            
+        } catch (Exception $e) {
+            return $this->responseError(null,'User not exists here');
+        }
+
     	//$user =User::where('email',$request->email)->first();
-        $user =$this->auth->getUserByEmail($request->email);
+     //    $user =$this->auth->getUserByEmail($request->email);
 
-    	if(!$user){
+    	// if(!$user){
 
-           return $this->responseError(null,'User not exists here');
-    	}
-          //hah check
-    	if(Hash::check($request->password,$user->password)){
-    		$tokenCreated=$user->createToken('authToken');
+     //       return $this->responseError(null,'User not exists here');
+    	// }
+     //      //hah check
+    	// if(Hash::check($request->password,$user->password)){
+    	// 	$tokenCreated=$user->createToken('authToken');
 
-    		$data=[
-                'user'=>$user,
-                'access_token'=>$tokenCreated->accessToken,
-                'token_type' => 'Bearer',
-                'expires_at' => Carbon::parse($tokenCreated->token->expires_at)->toDateTimeString()
+    	// 	$data=[
+     //            'user'=>$user,
+     //            'access_token'=>$tokenCreated->accessToken,
+     //            'token_type' => 'Bearer',
+     //            'expires_at' => Carbon::parse($tokenCreated->token->expires_at)->toDateTimeString()
                 
 
-    		];
+    	// 	];
 
-    		return $this->responseSuccess($data,'login succesfully');
-    	}
+    	// 	return $this->responseSuccess($data,'login succesfully');
+    	// }
     }
 }
