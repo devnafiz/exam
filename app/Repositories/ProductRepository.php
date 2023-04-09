@@ -10,7 +10,7 @@ class ProductRepository implements CurdInterface
 {
     
 
-    public function getAll(int $perPage=10):Paginator
+    public function getAll(?int $perPage=10):Paginator
     {
 
     	return Product::paginate($perPage);
