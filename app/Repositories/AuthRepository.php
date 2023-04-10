@@ -44,6 +44,34 @@ class AuthRepository
 
 
 
+    //register
+      public function register(array $data):array
+    {
+         $user =User::create($this->prepareDataForRegister($data));
+
+    	if(!$user){
+
+           //return $this->responseError(null,'User not exists here');
+    		throw new Exception("User Does not register ,Please try agin", 404);
+    		
+    	}
+
+            //hah check
+    	if(!$this->isValidPassword($user,$data)){
+          throw new Exception("Password does not match", 401);
+
+         }
+
+         $tokenInstance=$this->userAuthToken($user);
+
+    	return $this->getAuthData($user,$tokenInstance);
+       
+    	
+    }
+
+
+
+
     public function getUserByEmail(string $email):?User
     {
     	return User::where('email',$email)->first();
@@ -75,6 +103,18 @@ class AuthRepository
                 'access_token'=>$tokenInstance->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse($tokenInstance->token->expires_at)->toDateTimeString()
+    	];
+    }
+
+    public function prepareDataForRegister(array $data):array
+    {
+
+    	return[
+           'name'=>$data['name'],
+           'email'=>$data['email'],
+           'password'=>Hash::make($data['password'])
+
+
     	];
     }
 

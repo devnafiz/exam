@@ -3,11 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Traits\ResponseTrait;
 
-class LoginRequest extends ApiFormRequest
+class RegisterRequest extends ApiFormRequest
 {
-    use ResponseTrait;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,10 +24,9 @@ class LoginRequest extends ApiFormRequest
     public function rules()
     {
         return [
-            'email'=>'required|email|max:100',
-            'password'=>'required|min:8'
+            'name'=>'required|max:100',
+            'email'=>'required|email|max:100|unique:users',
+            'password'=>'required|min:8|confirmed'
         ];
     }
-
-     
 }

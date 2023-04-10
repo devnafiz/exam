@@ -7,6 +7,8 @@ use App\Http\Controllers\RatingController;
 
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +30,12 @@ Route::apiResource('/books',BookController::class);
 
 
 Route::post('/login',[LoginController::class,'login']);
-Route::middleware('auth:api')->group(function(){
+Route::post('/register',[RegisterController::class,'register']);
 
+
+Route::middleware('auth:api')->group(function(){
+    Route::get('/profile',[ProfileController::class,'show']);
+    
 	Route::get('/products',[ProductController::class,'index']);    
 });  
 
