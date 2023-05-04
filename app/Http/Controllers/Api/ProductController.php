@@ -34,12 +34,14 @@ class ProductController extends Controller
      *         description="Status values that needed to be considered for filter",
      *         required=false,
      *         explode=true,
+
      *         @OA\Schema(
      *             default="10",
      *             type="integer",
      *            
      *         )
      *     ),
+            security={{"Bearer":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",

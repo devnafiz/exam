@@ -13,6 +13,50 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "login",
+                "description": "Multiple status values can be provided with comma separated string",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Pet object that needs to be added to the store",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Updated email of the pet",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Updated status of the pet",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                },
+                "deprecated": true
+            }
+        },
         "/api/products": {
             "get": {
                 "tags": [
@@ -42,7 +86,22 @@
                         "description": "Invalid status value"
                     }
                 },
-                "deprecated": true
+                "deprecated": true,
+                "security": [
+                    {
+                        "0": "Bearer"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

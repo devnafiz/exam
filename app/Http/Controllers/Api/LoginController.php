@@ -24,25 +24,37 @@ class LoginController extends Controller
     }
 
     /**
-     * @OA\Get(
+     * @OA\Post(
      *     path="/api/login",
-     *     tags={"Products"},
-     *     summary="Get all product summery",
+     *     tags={"Authentication"},
+     *     summary="login",
      *     description="Multiple status values can be provided with comma separated string",
-     *     operationId="index",
+     *     operationId="login",
      *     deprecated=true,
-     *     @OA\Parameter(
-     *         name="perPage",
-     *         in="query",
-     *         description="Status values that needed to be considered for filter",
-     *         required=false,
-     *         explode=true,
-     *         @OA\Schema(
-     *             default="10",
-     *             type="integer",
-     *            
-     *         )
+            @OA\RequestBody(
+     *         required=true,
+     *         description="Pet object that needs to be added to the store",   @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="Updated email of the pet",
+     *                     type="string",
+
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Updated status of the pet",
+     *                     type="string"
+     *                 ),
+                      required={"email","password"}
+     *             )
+              ),
+     *        
      *     ),
+     *    
+     
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
