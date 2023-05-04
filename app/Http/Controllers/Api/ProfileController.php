@@ -38,4 +38,21 @@ class ProfileController extends Controller
         }
 
   }
+
+
+   public function logout():JsonResponse
+   {
+
+     
+        try {
+              Auth::guard()->user()->token()->revoke();//
+
+              Auth::guard()->user()->token()->delete();
+              return $this->responseSuccess('','Logout succesfully');
+            
+        } catch (Exception $e) {
+            return $this->responseError(null,'User not exists here');
+        }
+
+  }
 }

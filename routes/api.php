@@ -35,7 +35,8 @@ Route::post('/register',[RegisterController::class,'register']);
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/profile',[ProfileController::class,'show']);
-    
+    Route::post('/logout',[ProfileController::class,'logout']);
+
 	Route::get('/products',[ProductController::class,'index']);    
 });  
 

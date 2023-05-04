@@ -23,6 +23,39 @@ class LoginController extends Controller
         $this->auth=$auth;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/login",
+     *     tags={"Products"},
+     *     summary="Get all product summery",
+     *     description="Multiple status values can be provided with comma separated string",
+     *     operationId="index",
+     *     deprecated=true,
+     *     @OA\Parameter(
+     *         name="perPage",
+     *         in="query",
+     *         description="Status values that needed to be considered for filter",
+     *         required=false,
+     *         explode=true,
+     *         @OA\Schema(
+     *             default="10",
+     *             type="integer",
+     *            
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     *     
+     * )
+     */
+
     public function login(LoginRequest $request){
 
 
