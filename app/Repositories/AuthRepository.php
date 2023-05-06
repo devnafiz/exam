@@ -57,10 +57,10 @@ class AuthRepository
     	}
 
             //hah check
-    	if(!$this->isValidPassword($user,$data)){
-          throw new Exception("Password does not match", 401);
+    	// if(!$this->isValidPassword($user,$data)){
+     //      throw new Exception("Password does not match", 401);
 
-         }
+     //     }
 
          $tokenInstance=$this->userAuthToken($user);
 
