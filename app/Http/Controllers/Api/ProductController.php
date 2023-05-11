@@ -9,6 +9,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
+use App\Http\Requests\ProductCreateRequest;
 
 class ProductController extends Controller
 {
@@ -68,25 +69,24 @@ class ProductController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+   
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductCreateRequest $request):JsonResponse
     {
-        //
+        try {
+             //$product=Product::all();
+       // $productRepository =new ProductRepository;
+        return $this->responseSuccess($this->productRepository->getAll(request()->perPage),'product fatch succesfully');
+           
+       } catch (Exception $e) {
+             return $this->responseError('product fatch succesfully',$e-message());
+       }
+
     }
 
     /**

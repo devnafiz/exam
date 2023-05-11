@@ -26,7 +26,7 @@ use App\Http\Controllers\Api\ProfileController;
 // });
 
 Route::apiResource('/books',BookController::class);
-    Route::post('books/{book}/ratings', 'RatingController@store');
+    Route::post('books/{book}/ratings', [RatingController::class,'store']);
 
 
 Route::post('/login',[LoginController::class,'login']);
@@ -37,6 +37,6 @@ Route::middleware('auth:api')->group(function(){
     Route::get('/profile',[ProfileController::class,'show']);
     Route::post('/logout',[ProfileController::class,'logout']);
 
-	Route::get('/products',[ProductController::class,'index']);    
+	Route::apiResource('/products',ProductController::class);    
 });  
 

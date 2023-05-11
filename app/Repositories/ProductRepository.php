@@ -17,10 +17,16 @@ class ProductRepository implements CurdInterface
     }
 
 
-     public function getById(int $id):Product
+     public function getById(int $id): ?Product
     {
 
     	return Product::find($id);
+    }
+
+     public function create(array $data): ?Product
+    {
+
+    	return Product::create($data);
     }
 
 
