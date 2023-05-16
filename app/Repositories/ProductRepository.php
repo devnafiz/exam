@@ -5,6 +5,7 @@ namespace App\Repositories;
 use  App\Models\Product;
 use App\Interfaces\CurdInterface;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Str;
 
 class ProductRepository implements CurdInterface
 {
@@ -25,6 +26,10 @@ class ProductRepository implements CurdInterface
 
      public function create(array $data): ?Product
     {
+
+        if(empty($data['slug'])){
+            $data['slug']=Str::slug(substr([$data->slug], 0,80));
+        }
 
     	return Product::create($data);
     }

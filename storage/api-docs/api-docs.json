@@ -92,6 +92,66 @@
                         "Bearer": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Create Product",
+                "description": "Create Product",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Product Object",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "slug",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "product title",
+                                        "type": "string",
+                                        "example": "Product title"
+                                    },
+                                    "slug": {
+                                        "description": "Product Slug",
+                                        "type": "string",
+                                        "example": "Product-title"
+                                    },
+                                    "price": {
+                                        "description": "Product Price",
+                                        "type": "string",
+                                        "example": "30.00"
+                                    },
+                                    "image": {
+                                        "description": "Product Image",
+                                        "type": "string",
+                                        "example": " "
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                },
+                "deprecated": true,
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/profile": {

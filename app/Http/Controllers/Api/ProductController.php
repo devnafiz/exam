@@ -69,19 +69,74 @@ class ProductController extends Controller
         
     }
 
-   
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+   /**
+     * @OA\Post(
+     *     path="/api/products",
+     *     tags={"Products"},
+     *     summary="Create Product",
+     *     description="Create Product",
+     *     operationId="store",
+     *     deprecated=true,
+            @OA\RequestBody(
+     *         required=true,
+     *         description="Product Object",   
+               @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="title",
+     *                     description="product title",
+     *                     type="string",
+                           example="Product title"
+
+     *                 ),
+                        @OA\Property(
+     *                     property="slug",
+     *                     description="Product Slug",
+     *                     type="string",
+                           example="Product-title"
+
+     *                 ), 
+     *                 @OA\Property(
+     *                     property="price",
+     *                     description="Product Price",
+     *                     type="string",
+                          example="30.00"
+     *                 ),
+                       @OA\Property(
+     *                     property="image",
+     *                     description="Product Image",
+     *                     type="string",
+                          example=" "
+     *                 ),
+                      required={"title","price"}
+     *             )
+              ),
+              ),
+     *        
+     *     
+     *    
+            security={{"Bearer":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     *     
+     * )
      */
+    
     public function store(ProductCreateRequest $request):JsonResponse
     {
         try {
              //$product=Product::all();
        // $productRepository =new ProductRepository;
-        return $this->responseSuccess($this->productRepository->getAll(request()->perPage),'product fatch succesfully');
+        return $this->responseSuccess($this->productRepository->create($request->all()),'product fatch succesfully');
            
        } catch (Exception $e) {
              return $this->responseError('product fatch succesfully',$e-message());
