@@ -108,7 +108,6 @@
                             "schema": {
                                 "required": [
                                     "title",
-                                    "slug",
                                     "price"
                                 ],
                                 "properties": {
@@ -129,7 +128,7 @@
                                     },
                                     "image": {
                                         "description": "Product Image",
-                                        "type": "string",
+                                        "type": "file",
                                         "example": " "
                                     }
                                 },

@@ -24,6 +24,10 @@ use App\Models\Product;
 
 Route::get('/', function () {
 
+   $name=app()->make('getName');
+   $name->setName('hosur');
+   dd($name->getName());
+
    Product::all();
 
      //$service= new SomeServiceExample();

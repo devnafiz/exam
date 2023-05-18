@@ -107,7 +107,7 @@ class ProductController extends Controller
                        @OA\Property(
      *                     property="image",
      *                     description="Product Image",
-     *                     type="string",
+     *                     type="file",
                           example=" "
      *                 ),
                       required={"title","price"}
