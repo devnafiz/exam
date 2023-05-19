@@ -28,7 +28,7 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
 
      public function create(array $data): ?Product
     {
-       $data= $this->preparefordb();
+       $data= $this->preparefordb($data);
         // if(empty($data['slug'])){
         //     $data['slug']=Str::slug(substr([$data->slug], 0,80)).'-'.time();
         // }
@@ -37,11 +37,15 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
     	return Product::create($data);
     }
 
-     public function preparefordb(array $data): ?array
+     public function preparefordb(array $data): array
     {
 
         if(empty($data['slug'])){
             $data['slug']=$this->UniqueSlug($data['title']);
+        }
+        if(!empty($data['image'])){
+            $data['image']=$this->uploadImage($data['image']);
+
         }
         //add user Id
         $data['user_id']=Auth::id();
@@ -49,8 +53,17 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
         return $data;
     }
 
-    private function UniqueSlug(String $title){
+    private function UniqueSlug(String $title):string
+    {
         return  Str::slug(substr($title, 0,80)).'-'.time();
+    }
+
+    private function uploadImage($image)
+    {
+        $imageName= time().'.'.$image->extension();
+        $image->storePubliclyAs('public',$imageName);
+
+        return $imageName;
     }
 
 
