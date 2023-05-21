@@ -42,6 +42,33 @@ class ProductController extends Controller
      *            
      *         )
      *     ),
+
+            @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="Search by title",
+     *         required=false,
+     *         explode=true,
+
+     *         @OA\Schema(
+     *             default="",
+     *             type="string",
+     *            
+     *         )
+     *     ),
+          @OA\Parameter(
+         *         name="orderBy",
+         *         in="query",
+         *         description="order by column Name",
+         *         required=false,
+         *         explode=true,
+
+         *         @OA\Schema(
+         *             default="id",
+         *             type="string",
+         *            
+         *         )
+         *     ),
             security={{"Bearer":{}}},
      *     @OA\Response(
      *         response=200,
@@ -60,7 +87,7 @@ class ProductController extends Controller
        try {
              //$product=Product::all();
        // $productRepository =new ProductRepository;
-        return $this->responseSuccess($this->productRepository->getAll(request()->perPage),'product fatch succesfully');
+        return $this->responseSuccess($this->productRepository->getAll(request()->all()),'product fatch succesfully');
            
        } catch (Exception $e) {
              return $this->responseError('product fatch succesfully',$e-message());

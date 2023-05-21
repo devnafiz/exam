@@ -13,10 +13,34 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
 {
     
 
-    public function getAll(?int $perPage=10):Paginator
+    public function getAll(array $filterData):Paginator
     {
+        $filter=$this->getFilterData($filterData);
+        $query=Product::orderBy($filter['orderBy'],$filter['order']);
 
-    	return Product::paginate($perPage);
+        if(!empty($filter['search'])){
+
+            $searched ='%'.$filter['search'].'%';
+            $query->where('title','like')
+            ->orWhere('slug','like');
+        }
+
+    	return $query->paginate($filter['perPage']);
+    }
+
+    public function getFilterData(array $filterData): array
+    {
+        $defaultArgs=[
+
+             'perPage'=>'10',
+             'search'=>'',
+             'orderBy'=>'id',
+             'order'=>'desc'
+
+        ];
+
+        return array_merge($defaultArgs,$filterData);
+
     }
 
 

@@ -13,6 +13,8 @@ class Product extends Model
         'title', 'slug', 'description','image','user_id','price'
     ];
      protected $appends = ['image_url'];
+     protected $hidden = ['image'];
+
 
      public function getImageUrlAttribute()
      {
