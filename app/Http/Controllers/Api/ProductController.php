@@ -230,16 +230,90 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     /**
+     * @OA\PUT(
+     *     path="/api/products/{id}",
+     *     tags={"Products"},
+     *     summary="Update Product",
+     *     description="Update Product",
+     *     
+     *     deprecated=true,
+      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Product id",
+     *         required=true,
+     *         
+
+     *         @OA\Schema(
+     *            
+     *             type="integer",
+     *            
+     *         )
+     *     ),
+            @OA\RequestBody(
+     *         required=true,
+     *         description="Product Object",   
+               @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="title",
+     *                     description="product title",
+     *                     type="string",
+                           example="Product title"
+
+     *                 ),
+                        @OA\Property(
+     *                     property="slug",
+     *                     description="Product Slug",
+     *                     type="string",
+                           example="Product-title"
+
+     *                 ), 
+     *                 @OA\Property(
+     *                     property="price",
+     *                     description="Product Price",
+     *                     type="string",
+                          example="30.00"
+     *                 ),
+                       @OA\Property(
+     *                     property="image",
+     *                     description="Product Image",
+     *                     type="file",
+                          example=" "
+     *                 ),
+                      required={"title","price","slug"}
+     *             )
+              ),
+              ),
+     *        
+     *     
+     *    
+            security={{"Bearer":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     *     
+     * )
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,int $id)
     {
-        //
+         try {
+             //$product=Product::all();
+       // $productRepository =new ProductRepository;
+        return $this->responseSuccess($this->productRepository->update($id,$request->all()),'product update succesfully');
+           
+       } catch (Exception $e) {
+             return $this->responseError('product fatch succesfully',$e->getMessage(),$e->getCode());
+       }
     }
 
     /**

@@ -69,6 +69,26 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
     	return Product::create($data);
     }
 
+     public function update(int $id,array $data): ?Product
+    {
+       $product =$this->getById($id);
+        $data= $this->preparefordb($data);
+
+        
+        return  $product->update($data);
+    }
+
+     public function delete(int $id): ?Product
+    {
+       $data= $this->preparefordb($data);
+        // if(empty($data['slug'])){
+        //     $data['slug']=Str::slug(substr([$data->slug], 0,80)).'-'.time();
+        // }
+        // //add user Id
+        // $data['user_id']=Auth::id();
+        return Product::create($data);
+    }
+
      public function preparefordb(array $data): array
     {
 

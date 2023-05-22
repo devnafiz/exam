@@ -208,6 +208,76 @@
                         "Bearer": []
                     }
                 ]
+            },
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update Product",
+                "description": "Update Product",
+                "operationId": "416e4959a3919547eb609d87e3db9135",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Product Object",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "product title",
+                                        "type": "string",
+                                        "example": "Product title"
+                                    },
+                                    "slug": {
+                                        "description": "Product Slug",
+                                        "type": "string",
+                                        "example": "Product-title"
+                                    },
+                                    "price": {
+                                        "description": "Product Price",
+                                        "type": "string",
+                                        "example": "30.00"
+                                    },
+                                    "image": {
+                                        "description": "Product Image",
+                                        "type": "file",
+                                        "example": " "
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                },
+                "deprecated": true,
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/profile": {
