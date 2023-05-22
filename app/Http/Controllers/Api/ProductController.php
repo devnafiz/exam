@@ -27,7 +27,7 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Get all product summery",
      *     description="Multiple status values can be provided with comma separated string",
-     *     operationId="index",
+     *     
      *     deprecated=true,
      *     @OA\Parameter(
      *         name="perPage",
@@ -90,7 +90,7 @@ class ProductController extends Controller
         return $this->responseSuccess($this->productRepository->getAll(request()->all()),'product fatch succesfully');
            
        } catch (Exception $e) {
-             return $this->responseError('product fatch succesfully',$e-message());
+             return $this->responseError('product fatch succesfully',$e->getMessage(),$e->getCode());
        }
 
         
@@ -102,7 +102,7 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Create Product",
      *     description="Create Product",
-     *     operationId="store",
+     *     
      *     deprecated=true,
             @OA\RequestBody(
      *         required=true,
@@ -166,20 +166,57 @@ class ProductController extends Controller
         return $this->responseSuccess($this->productRepository->create($request->all()),'product fatch succesfully');
            
        } catch (Exception $e) {
-             return $this->responseError('product fatch succesfully',$e-message());
+             return $this->responseError('product fatch succesfully',$e->getMessage(),$e->getCode());
        }
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     /**
+     * @OA\Get(
+     *     path="/api/products/{id}",
+     *     tags={"Products"},
+     *     summary="Get  product details",
+     *     description="Multiple status values can be provided with comma separated string",
+     *     
+     *     deprecated=true,
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Product id",
+     *         required=true,
+     *         
+
+     *         @OA\Schema(
+     *            
+     *             type="integer",
+     *            
+     *         )
+     *     ),
+
+            security={{"Bearer":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Product not found"
+     *     )
+     *     
+     * )
      */
-    public function show($id)
+    public function show(int $id):JsonResponse
     {
-        //
+         try {
+             //$product=Product::all();
+       // $productRepository =new ProductRepository;
+            $product=$this->productRepository->getById($id);
+        return $this->responseSuccess($product,'product fatch succesfully');
+           
+       } catch (Exception $e) {
+             return $this->responseError('product fatch succesfully',$e->getMessage(), $e->getCode());
+       }
     }
 
     /**

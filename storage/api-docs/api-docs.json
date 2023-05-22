@@ -64,7 +64,7 @@
                 ],
                 "summary": "Get all product summery",
                 "description": "Multiple status values can be provided with comma separated string",
-                "operationId": "index",
+                "operationId": "d97d1c3727cbac49708b85f7d11f7d58",
                 "parameters": [
                     {
                         "name": "perPage",
@@ -75,6 +75,28 @@
                         "schema": {
                             "type": "integer",
                             "default": "10"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search by title",
+                        "required": false,
+                        "explode": true,
+                        "schema": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "order by column Name",
+                        "required": false,
+                        "explode": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "id"
                         }
                     }
                 ],
@@ -99,7 +121,7 @@
                 ],
                 "summary": "Create Product",
                 "description": "Create Product",
-                "operationId": "store",
+                "operationId": "785644b7d7dd38af4b51dafd0fbc1b6d",
                 "requestBody": {
                     "description": "Product Object",
                     "required": true,
@@ -143,6 +165,41 @@
                     },
                     "400": {
                         "description": "Invalid status value"
+                    }
+                },
+                "deprecated": true,
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get  product details",
+                "description": "Multiple status values can be provided with comma separated string",
+                "operationId": "c87fb2e4d617e7b36c712cad358acdb8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Product not found"
                     }
                 },
                 "deprecated": true,

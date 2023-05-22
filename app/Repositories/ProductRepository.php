@@ -8,7 +8,8 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Str;
 use Auth;
 use App\Interfaces\DbPrepareableInterface;
-
+use Exception;
+use Illuminate\Http\Response;
 class ProductRepository implements CurdInterface,DbPrepareableInterface
 {
     
@@ -21,8 +22,8 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
         if(!empty($filter['search'])){
 
             $searched ='%'.$filter['search'].'%';
-            $query->where('title','like')
-            ->orWhere('slug','like');
+            $query->where('title','like',$searched)
+            ->orWhere('slug','like',$searched);
         }
 
     	return $query->paginate($filter['perPage']);
@@ -47,7 +48,14 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
      public function getById(int $id): ?Product
     {
 
-    	return Product::find($id);
+    	$product= Product::find($id);
+
+        if(empty($product)){
+
+            throw new Exception("Product does not found",Response::HTTP_NOT_FOUND );
+            
+        }
+        return $product;
     }
 
      public function create(array $data): ?Product
