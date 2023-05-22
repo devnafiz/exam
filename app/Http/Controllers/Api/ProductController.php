@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
@@ -231,7 +232,7 @@ class ProductController extends Controller
     }
 
      /**
-     * @OA\PUT(
+     * @OA\POST(
      *     path="/api/products/{id}",
      *     tags={"Products"},
      *     summary="Update Product",
@@ -248,6 +249,20 @@ class ProductController extends Controller
      *         @OA\Schema(
      *            
      *             type="integer",
+     *            
+     *         )
+     *     ),
+     @OA\Parameter(
+     *         name="_method",
+     *         in="query",
+     *         description="request method",
+     *         required=true,
+     *         
+
+     *         @OA\Schema(
+     *            
+     *             type="string",
+                   default="PUT"
      *            
      *         )
      *     ),
@@ -304,8 +319,9 @@ class ProductController extends Controller
      *     
      * )
      */
-    public function update(Request $request,int $id)
+    public function update(ProductUpdateRequest $request,int $id)
     {
+       // return $request->all();
          try {
              //$product=Product::all();
        // $productRepository =new ProductRepository;
@@ -316,14 +332,49 @@ class ProductController extends Controller
        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     /**
+     * @OA\DELETE(
+     *     path="/api/products/{id}",
+     *     tags={"Products"},
+     *     summary="  product Delete",
+     *     description="Multiple status values can be provided with comma separated string",
+     *     
+     *     deprecated=true,
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Product id",
+     *         required=true,
+     *         
+
+     *         @OA\Schema(
+     *            
+     *             type="integer",
+     *            
+     *         )
+     *     ),
+
+            security={{"Bearer":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Product not found"
+     *     )
+     *     
+     * )
      */
-    public function destroy($id)
+    public function destroy(int $id):JsonResponse
     {
-        //
+         try {
+           
+        return $this->responseSuccess($this->productRepository->delete($id),'product deleted succesfully');
+           
+       } catch (Exception $e) {
+             return $this->responseError('product fatch succesfully',$e->getMessage(),$e->getCode());
+       }
     }
 }

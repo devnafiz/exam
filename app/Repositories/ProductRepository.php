@@ -72,30 +72,43 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
      public function update(int $id,array $data): ?Product
     {
        $product =$this->getById($id);
-        $data= $this->preparefordb($data);
+        //$data= $this->preparefordb($data);
 
         
-        return  $product->update($data);
+        $updated=$product->update($this->preparefordb($data,$product));
+        if($updated){
+             $product =$this->getById($id);
+        }
+        return $product;
     }
 
      public function delete(int $id): ?Product
     {
-       $data= $this->preparefordb($data);
-        // if(empty($data['slug'])){
-        //     $data['slug']=Str::slug(substr([$data->slug], 0,80)).'-'.time();
-        // }
-        // //add user Id
-        // $data['user_id']=Auth::id();
-        return Product::create($data);
+       $product =$this->getById($id);
+        //$data= $this->preparefordb($data);
+        $this->deleteImage($product->image);
+
+        
+        $deleted=$product->delete();
+        if(!$deleted){
+             throw new Exception("Product  could not be deleted",Response::HTTP_INTERNAL_SERVER_ERROR );
+        }
+        return $product;
     }
 
-     public function preparefordb(array $data): array
+     public function preparefordb(array $data,?Product $product=null): array
     {
 
         if(empty($data['slug'])){
             $data['slug']=$this->UniqueSlug($data['title']);
         }
         if(!empty($data['image'])){
+
+            //delete privious image 
+            if(!is_null($product)){
+               $this->deleteImage($product->image_url);
+
+            }
             $data['image']=$this->uploadImage($data['image']);
 
         }
@@ -116,6 +129,19 @@ class ProductRepository implements CurdInterface,DbPrepareableInterface
         $image->storePubliclyAs('public',$imageName);
 
         return $imageName;
+    }
+
+    private function deleteImage(?string $imageUrl):void
+    {
+        if(!empty($imageUrl)){
+            $imageName=substr($imageUrl, (stripos($imageUrl, 'storage/')?:-1)+1);
+
+            if(!empty($imageName) && Storage::exists($imageName)){
+         Storage::delete($imageName);
+       }
+
+        }
+       
     }
 
 

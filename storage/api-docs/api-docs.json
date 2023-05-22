@@ -209,13 +209,13 @@
                     }
                 ]
             },
-            "put": {
+            "post": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "Update Product",
                 "description": "Update Product",
-                "operationId": "416e4959a3919547eb609d87e3db9135",
+                "operationId": "c59edecc7aef49bec5352dd0cb536524",
                 "parameters": [
                     {
                         "name": "id",
@@ -224,6 +224,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "_method",
+                        "in": "query",
+                        "description": "request method",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "PUT"
                         }
                     }
                 ],
@@ -235,7 +245,8 @@
                             "schema": {
                                 "required": [
                                     "title",
-                                    "price"
+                                    "price",
+                                    "slug"
                                 ],
                                 "properties": {
                                     "title": {
@@ -270,6 +281,39 @@
                     },
                     "400": {
                         "description": "Invalid status value"
+                    }
+                },
+                "deprecated": true,
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "  product Delete",
+                "description": "Multiple status values can be provided with comma separated string",
+                "operationId": "b49ce9f3cb168b233245548fb4ef36d3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Product not found"
                     }
                 },
                 "deprecated": true,

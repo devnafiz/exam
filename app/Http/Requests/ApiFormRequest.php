@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Response;
 
 
 
@@ -25,7 +26,7 @@ class ApiFormRequest extends FormRequest
     {
         throw new HttpResponseException(
 
-         $this->responseError((new ValidationException($validator))->errors())
+         $this->responseError((new ValidationException($validator))->errors(),'Invalide Requests',Response::HTTP_BAD_REQUEST)
         );
         
     }
