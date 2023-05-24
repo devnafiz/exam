@@ -1,0 +1,29 @@
+{
+    "name": "nafiz/laravel_slug",
+    "description": "\u001b[A\u001b[BA slug generator for laravel",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Nafiz\\LaravelSlug\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nafiz",
+            "email": "nafiz.2011@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+    "laravel": {
+        "providers": [
+            "Nafiz\\LaravelSlug\\UniqueSlugServiceProvider"
+        ],
+        "aliases": {
+            "UniqueSlug": "Nafiz\\LaravelSlug\\UniqueSlug"
+        }
+    }
+},
+}
