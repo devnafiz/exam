@@ -1,5 +1,5 @@
 <?php
-namespace Nafiz\\LaravelSlug;
+namespace Nafiz\LaravelSlug;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +13,10 @@ class UniqueSlugServiceProvider extends ServiceProvider
 
    public function register(): void
     {
-        
+        $this->app->bind('Laravel-unique-slug',function($app){
+           return new Nafiz\LaravelSlug\UniqueSlug();
+
+        });
     }
 
 

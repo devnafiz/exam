@@ -186,6 +186,7 @@ return [
          * Package Service Providers...
          */
         L5Swagger\L5SwaggerServiceProvider::class,
+        Nafiz\LaravelSlug\UniqueSlugServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -215,6 +216,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'SomeService' => App\Facades\SomeServiceExampleFacade::class,
+        'UniqueSlug' =>  Nafiz\LaravelSlug\Fasades\UniqueSlug::class,
     ])->toArray(),
 
 ];

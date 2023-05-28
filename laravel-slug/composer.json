@@ -1,5 +1,5 @@
 {
-    "name": "nafiz/laravel_slug",
+    "name": "nafiz/laravel-slug",
     "description": "\u001b[A\u001b[BA slug generator for laravel",
     "type": "composer-plugin",
     "license": "MIT",
@@ -25,5 +25,5 @@
             "UniqueSlug": "Nafiz\\LaravelSlug\\UniqueSlug"
         }
     }
-},
+ }
 }
